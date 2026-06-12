@@ -11,12 +11,10 @@ Para iniciar o diagnóstico, eu faria as seguintes perguntas:
 - O erro ocorre em todas as tentativas ou apenas em determinados momentos?
 - Houve alguma alteração recente, como troca de senha, mudança de e-mail ou utilização de um novo computador?
 
-
 ## 2. Evidências solicitadas
 - Print ou foto da mensagem de erro;
 - E-mail utilizado para acesso ao sistema;
 - Horário exato em que a tentativa de login foi realizada.
-
 
 ## 3. Verificações realizadas antes de escalar a demanda
 - Confirmar se o sistema está disponível e funcionando normalmente;
@@ -27,8 +25,6 @@ Para iniciar o diagnóstico, eu faria as seguintes perguntas:
 - Testar o acesso em modo anônimo ou em outro navegador;
 - Verificar se existe alguma manutenção programada ou indisponibilidade conhecida.
 
-
-
 ## 4. Classificação da prioridade
 Considerando que o usuário informou possuir uma entrega interna com prazo para o mesmo dia, classificaria o chamado da seguinte forma:
 
@@ -37,8 +33,6 @@ Considerando que o usuário informou possuir uma entrega interna com prazo para 
 | Impacto | Médio-Alto |
 | Urgência | Alta |
 | Prioridade Final | Alta (P1 - Urgente) |
-
-
 
 ## 5. Registro da demanda
 O chamado seria registrado em planilha ou sistema de controle contendo:
@@ -103,7 +97,6 @@ Caso fosse necessário escalar a demanda, enviaria:
 - Prioridade do chamado e prazo informado pelo usuário.
 
 ## 10. Garantia de encerramento somente após devolutiva final
-O chamado somente seria encerrado após:
 
 - Confirmação do usuário de que o acesso foi restabelecido; ou
 - Registro formal da solução aplicada e comunicação ao solicitante.
@@ -116,7 +109,6 @@ Além disso, o campo Devolutiva Final permaneceria obrigatório. O status Encerr
 O código-fonte da solução encontra-se em:
 
 /questao2/index.html
-
 
 # Questão 3 — Lógica de Programação e Integração (API)
 ## Tecnologias utilizadas
@@ -139,7 +131,7 @@ O código-fonte da solução encontra-se em:
 |--------|----------|
 | Ferramenta | Claude |
 | Finalidade | Auxiliar na estruturação da lógica de cruzamento de dados |
-| Prompts fornecidos | Enunciado completo da questão |
+| Prompts fornecidos | Estutura iniciada por mim e correção de erros |
 | Ajustes manuais | Utilização de `urllib.request` em vez de bibliotecas externas para evitar dependências adicionais |
 | Validação | Revisão da lógica, conferência da contagem de tarefas e verificação do uso da função `max()` |
 | Privacidade | Nenhum dado sensível foi compartilhado. Foram utilizadas apenas URLs públicas da API JSONPlaceholder |
