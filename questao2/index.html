@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Chamados - TI</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+            background: #0f1117;
+            color: #e2e8f0;
+            padding: 20px;
+        }
+
+        h2 {
+            font-size: 15px;
+            font-weight: 600;
+            color: #e2e8f0;
+            margin-bottom: 14px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            font-size: 11px;
+            color: #64748b;
+            margin-bottom: 4px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            background: #1a1d27;
+            border: 1px solid #2e3248;
+            border-radius: 6px;
+            color: #e2e8f0;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            padding: 7px 10px;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #6c63ff;
+        }
+
+        textarea {
+            min-height: 58px;
+            resize: vertical;
+        }
+
+        select option {
+            background: #1a1d27;
+        }
+
+        .btn {
+            background: #6c63ff;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 18px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 4px;
+        }
+
+        .btn:hover {
+            background: #7c74ff;
+        }
+
+        .tbl-wrap {
+            margin-top: 28px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        th {
+            background: #1a1d27;
+            color: #64748b;
+            font-weight: 600;
+            padding: 8px 10px;
+            text-align: left;
+            border-bottom: 1px solid #2e3248;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 7px 10px;
+            border-bottom: 1px solid #1a1d27;
+            color: #cbd5e1;
+            vertical-align: middle;
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, .02);
+        }
+
+        .vencido td {
+            background: rgba(248, 113, 113, .05) !important;
+        }
+
+        select.st {
+            background: transparent;
+            border: none;
+            color: #a78bfa;
+            font-size: 11px;
+            cursor: pointer;
+            padding: 2px 4px;
+            font-family: Arial, sans-serif;
+        }
+
+        input[type="checkbox"] {
+            width: auto;
+            cursor: pointer;
+        }
+
+        .warn {
+            color: #f87171;
+            font-size: 10px;
+        }
+
+        .ok {
+            color: #34d399;
+            font-size: 11px;
+        }
+
+        .bclose {
+            background: #ef4444;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 3px 8px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .bclose:hover {
+            background: #dc2626;
+        }
+
+        .aviso {
+            background: #2d1a1a;
+            border: 1px solid #f87171;
+            border-radius: 6px;
+            padding: 8px 12px;
+            color: #fca5a5;
+            font-size: 12px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .empty {
+            color: #4a5568;
+            font-size: 12px;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>Novo chamado</h2>
+<div class="grid">
+  <div><label>Solicitante *</label><input id="nome" placeholder="Nome do usuário"></div>
+  <div><label>Canal *</label>
+    <select id="canal"><option value="">Selecione</option><option>WhatsApp</option><option>E-mail</option><option>Telefone</option><option>Presencial</option></select>
+  </div>
+  <div><label>Tipo *</label>
+    <select id="tipo"><option value="">Selecione</option><option>Acesso / Login</option><option>Bug no sistema</option><option>Dúvida</option><option>Solicitação</option><option>Financeiro / Contrato</option><option>Outro</option></select>
+  </div>
+  <div><label>Prioridade *</label>
+    <select id="prio"><option value="">Selecione</option><option>Crítica</option><option>Alta</option><option>Média</option><option>Baixa</option></select>
+  </div>
+  <div class="full"><label>Descrição *</label><textarea id="desc" placeholder="Descreva o problema..."></textarea></div>
+  <div><label>Encaminhar para</label>
+    <select id="dest"><option>Suporte</option><option>Desenvolvimento</option><option>Financeiro</option><option>Comercial</option><option>Jurídico</option><option>Implantação</option></select>
+  </div>
+  <div><label>Prazo do usuário</label><input id="prazo" type="date"></div>
+</div>
+<button class="btn" onclick="abrir()">Registrar chamado</button>
+<div class="aviso" id="av">⚠ Marque a devolutiva final antes de encerrar o chamado.</div>
+
+<div class="tbl-wrap">
+  <h2 style="margin-bottom:12px">Chamados</h2>
+  <table>
+    <thead><tr>
+      <th>#</th><th>Solicitante</th><th>Tipo</th><th>Prio</th><th>Destino</th>
+      <th>Status</th><th>1º Retorno</th><th>Devolutiva</th><th>Prazo</th><th></th>
+    </tr></thead>
+    <tbody id="tb"><tr><td colspan="10" class="empty">Nenhum chamado registrado.</td></tr></tbody>
+  </table>
+</div>
+
+<script>
+var dados = [], c = 1;
+
+function hoje() {
+  return new Date().toISOString().split('T')[0];
+}
+
+function abrir() {
+  var n = document.getElementById('nome').value.trim();
+  var ca = document.getElementById('canal').value;
+  var ti = document.getElementById('tipo').value;
+  var p = document.getElementById('prio').value;
+  var d = document.getElementById('desc').value.trim();
+
+  if (!n || !ca || !ti || !p || !d) {
+    alert('Preencha os campos obrigatórios (*).');
+    return;
+  }
+
+  dados.push({
+    id: c++, nome: n, canal: ca, tipo: ti, prio: p, desc: d,
+    dest: document.getElementById('dest').value,
+    prazo: document.getElementById('prazo').value,
+    status: 'Aberto', ret: false, dev: false
+  });
+
+  document.getElementById('nome').value = '';
+  document.getElementById('desc').value = '';
+  document.getElementById('canal').value = '';
+  document.getElementById('tipo').value = '';
+  document.getElementById('prio').value = '';
+  document.getElementById('prazo').value = '';
+  render();
+}
+
+function upd(id, k, v) {
+  var r = dados.find(function(x) { return x.id === id; });
+  if (r) { r[k] = v; render(); }
+}
+
+function fechar(id) {
+  var r = dados.find(function(x) { return x.id === id; });
+  if (!r.dev) {
+    document.getElementById('av').style.display = 'block';
+    setTimeout(function() { document.getElementById('av').style.display = 'none'; }, 3500);
+    return;
+  }
+  r.status = 'Resolvido';
+  render();
+}
+
+function render() {
+  var tb = document.getElementById('tb');
+  if (!dados.length) {
+    tb.innerHTML = '<tr><td colspan="10" class="empty">Nenhum chamado registrado.</td></tr>';
+    return;
+  }
+  tb.innerHTML = dados.map(function(r) {
+    var over = r.prazo && r.prazo < hoje() && r.status !== 'Resolvido';
+    return '<tr class="' + (over ? 'vencido' : '') + '">' +
+      '<td style="color:#4a5568;font-size:11px">' + r.id + '</td>' +
+      '<td>' + r.nome + '</td>' +
+      '<td style="color:#94a3b8">' + r.tipo + '</td>' +
+      '<td>' + r.prio + '</td>' +
+      '<td style="color:#94a3b8">' + r.dest + '</td>' +
+      '<td><select class="st" onchange="upd(' + r.id + ',\'status\',this.value)">' +
+        ['Aberto','Em atendimento','Dev','Outro setor','Resolvido'].map(function(s) {
+          return '<option' + (r.status === s ? ' selected' : '') + '>' + s + '</option>';
+        }).join('') +
+      '</select></td>' +
+      '<td style="text-align:center"><input type="checkbox" ' + (r.ret ? 'checked' : '') + ' onchange="upd(' + r.id + ',\'ret\',this.checked)"></td>' +
+      '<td style="text-align:center"><input type="checkbox" ' + (r.dev ? 'checked' : '') + ' onchange="upd(' + r.id + ',\'dev\',this.checked)">' +
+        (!r.dev && r.status !== 'Aberto' ? '<br><span class="warn">pendente</span>' : '') +
+      '</td>' +
+      '<td>' + (r.prazo ? r.prazo.split('-').reverse().join('/') + (over ? '<br><span class="warn">vencido</span>' : '') : '—') + '</td>' +
+      '<td>' + (r.status !== 'Resolvido' ? '<button class="bclose" onclick="fechar(' + r.id + ')">Fechar</button>' : '<span class="ok">✓</span>') + '</td>' +
+    '</tr>';
+  }).join('');
+}
+
+render();
+</script>
+</body>
+</html>
