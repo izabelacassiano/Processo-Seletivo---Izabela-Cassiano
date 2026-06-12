@@ -109,3 +109,45 @@ O chamado somente seria encerrado após:
 - Registro formal da solução aplicada e comunicação ao solicitante.
 
 Além disso, o campo Devolutiva Final permaneceria obrigatório. O status Encerrado só poderia ser selecionado após o preenchimento desse campo, garantindo que nenhuma demanda fosse finalizada sem retorno ao usuário.
+
+
+## Questão 2
+
+O código-fonte da solução encontra-se em:
+
+/questao2/index.html
+
+
+# Questão 3 — Lógica de Programação e Integração (API)
+## Tecnologias utilizadas
+
+- Python 3
+- urllib.request
+- json
+
+## Estratégia da solução
+1. Consumir a lista de usuários.
+2. Consumir a lista de tarefas.
+3. Filtrar apenas as tarefas pendentes.
+4. Contabilizar a quantidade de tarefas pendentes por usuário.
+5. Identificar o usuário com maior quantidade de tarefas pendentes.
+6. Exibir o nome do usuário e a quantidade de tarefas pendentes.
+
+## Uso de Inteligência Artificial
+
+| Item | Detalhe |
+|--------|----------|
+| Ferramenta | Claude |
+| Finalidade | Auxiliar na estruturação da lógica de cruzamento de dados |
+| Prompts fornecidos | Enunciado completo da questão |
+| Ajustes manuais | Utilização de `urllib.request` em vez de bibliotecas externas para evitar dependências adicionais |
+| Validação | Revisão da lógica, conferência da contagem de tarefas e verificação do uso da função `max()` |
+| Privacidade | Nenhum dado sensível foi compartilhado. Foram utilizadas apenas URLs públicas da API JSONPlaceholder |
+
+## Resultado esperado
+O script imprime:
+
+```text
+Usuário mais sobrecarregado: Nome do usuário
+Tarefas pendentes: Quantidade
+```
