@@ -68,6 +68,7 @@ Explicando:
 ## Estrutura da Base de Dados
 
 | Campo | Tipo | Descrição |
+|---------|------------|
 | id_chamado | Inteiro | Identificador único |
 | data_abertura | Data | Data de abertura do chamado |
 | solicitante | Texto | Nome do usuário |
